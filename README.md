@@ -2,7 +2,7 @@
 
 ## Requirements:
 * iOS 13.0+
-* Xcode 11.6
+* Xcode 12.4
 * Swift 5  
 
 ## Objective:
