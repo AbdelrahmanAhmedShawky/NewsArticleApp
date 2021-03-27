@@ -3,7 +3,8 @@ import SwiftUI
 struct NewsListView: View {
     @ObservedObject var viewModel = NewsResultViewModel()
     @State private var showCancelButton: Bool = false
-    
+    @ObservedObject var favoriteItems = FavoriteItems()
+    @State private var showfav = false
     @ViewBuilder
     var searchView:some View {
         
@@ -66,7 +67,25 @@ struct NewsListView: View {
     
     var NewsListView: some View {
         List(viewModel.searchTerm.isEmpty ? self.viewModel.newsList : self.viewModel.searchNewsList,id:\.description) { item in
-            NewsViewCell(item: item)
+            VStack {
+                NewsViewCell(item: item)
+                Button(action: {
+                    if self.favoriteItems.favItems.contains(where: {$0.title == item.title }) {
+                        self.favoriteItems.favItems.removeAll(where: { $0.title == item.title })
+                    }else {
+                        self.favoriteItems.favItems.append(item)
+                        UserNewsFavoritesManager.shared.favoritesNews = self.favoriteItems.favItems
+                        let mySavedPlaces = UserNewsFavoritesManager.shared.favoritesNews
+                        print("tesst",mySavedPlaces)
+                    }
+                }) {
+                    Text(self.favoriteItems.favItems.contains(where: {$0.title == item.title }) ? "favorites" :"Add to favorites")
+                        .font(.headline)
+                        .foregroundColor(self.favoriteItems.favItems.contains(where: {$0.title == item.title }) ? Color.green : Color.blue)
+                        .frame(minWidth: 100, maxWidth: UIScreen.main.bounds.size.width/1.2, minHeight: 50)
+                }.background(
+                    RoundedRectangle(cornerRadius: 15).shadow(color: Color.gray.opacity(0.35), radius: 15, x: 0, y: 0))
+            }
         }
     }
     
@@ -97,7 +116,14 @@ struct NewsListView: View {
                         segmantControl
                         listView
                     }
-                }.navigationBarTitle("News Articls")
+                }.navigationBarTitle("News Articls").toolbar {
+                    Button("your Favorites") {
+                        print("Help tapped!")
+                        self.showfav = true
+                    }.sheet(isPresented: self.$showfav) {
+                        FavoritesNewsView()
+                    }
+                }
                 .resignKeyboardOnDragGesture()
             }
             .onAppear {

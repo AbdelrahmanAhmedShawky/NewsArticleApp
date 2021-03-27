@@ -6,7 +6,12 @@ struct NewsViewCell: View {
         VStack(alignment: .center,spacing: 8, content: {
             UrlImageView(urlString: item.urlToImage)
                 .frame(width: UIScreen.main.bounds.size.width/1.2, height:200)
-            .cornerRadius(15)
+            .cornerRadius(15).onTapGesture {
+                guard let url = URL(string: item.url ?? "") else {
+                  return //be safe
+                }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         VStack(alignment: .leading, spacing: 8) {
             Text(item.title ?? "").bold().padding(4)
             Text(item.description ?? "" )
@@ -16,16 +21,8 @@ struct NewsViewCell: View {
                 Spacer()
                 Text("\(item.publishedAt ?? "") ")
             }
-            
         }
     }).padding(.all,2.0)
-        .onTapGesture {
-            guard let url = URL(string: item.url ?? "") else {
-              return //be safe
-            }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            
-        }
     }
 }
 
