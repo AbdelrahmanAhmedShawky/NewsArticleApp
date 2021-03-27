@@ -9,7 +9,6 @@ struct SelectCountriesAndCategoriesView: View {
     @State private var selectedCountry = 0
     @State private var selectedCountryValue:Country? = nil
     @State var selectedCategories: [String] = []
-    @State var goTheHome: Int? = nil
     
     private func categoriesField() -> some View {
         Text("Please Select 3 Favorite")
