@@ -72,11 +72,10 @@ struct NewsListView: View {
                 Button(action: {
                     if self.favoriteItems.favItems.contains(where: {$0.title == item.title }) {
                         self.favoriteItems.favItems.removeAll(where: { $0.title == item.title })
+                        UserNewsFavoritesManager.shared.favoritesNews = self.favoriteItems.favItems
                     }else {
                         self.favoriteItems.favItems.append(item)
                         UserNewsFavoritesManager.shared.favoritesNews = self.favoriteItems.favItems
-                        let mySavedPlaces = UserNewsFavoritesManager.shared.favoritesNews
-                        print("tesst",mySavedPlaces)
                     }
                 }) {
                     Text(self.favoriteItems.favItems.contains(where: {$0.title == item.title }) ? "favorites" :"Add to favorites")
