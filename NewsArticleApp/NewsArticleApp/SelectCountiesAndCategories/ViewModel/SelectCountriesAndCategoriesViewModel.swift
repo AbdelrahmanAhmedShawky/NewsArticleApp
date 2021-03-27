@@ -3,7 +3,7 @@ import Foundation
 import Combine
 
 class SelectCountriesAndCategoriesViewModel: ObservableObject,CountriesAndCategoriesService {
-    var fileManagerHandler: FileManagerHandlerProtocol
+    var fileManagerHandler: FileManagerServiceProtocol
     
     
     private var cancellables = Set<AnyCancellable>()
@@ -15,7 +15,7 @@ class SelectCountriesAndCategoriesViewModel: ObservableObject,CountriesAndCatego
     @Published var alertMessage = ""
     var searchTerm: String = ""
     
-    init(fileManagerHandler: FileManagerHandlerProtocol = FileManagerHandler()) {
+    init(fileManagerHandler: FileManagerServiceProtocol = FileManagerService()) {
         self.fileManagerHandler = fileManagerHandler
         isShowLoader = false
         isShowAlert = false

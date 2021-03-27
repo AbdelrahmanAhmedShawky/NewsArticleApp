@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 protocol CountriesAndCategoriesService {
-    var fileManagerHandler: FileManagerHandlerProtocol {get}
+    var fileManagerHandler: FileManagerServiceProtocol {get}
     
     func getCountries() -> AnyPublisher<CountriesModel,ApiErorr>
     func getCategories() -> AnyPublisher<CategoriesModel,ApiErorr>

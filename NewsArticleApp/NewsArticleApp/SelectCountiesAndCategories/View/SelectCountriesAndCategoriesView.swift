@@ -3,10 +3,13 @@ import Combine
 
 struct SelectCountriesAndCategoriesView: View {
     
+    @EnvironmentObject var settings: UserSettings
+    
     @ObservedObject var viewModel = SelectCountriesAndCategoriesViewModel()
     @State private var selectedCountry = 0
     @State private var selectedCountryValue:Country? = nil
     @State var selectedCategories: [String] = []
+    @State var goTheHome: Int? = nil
     
     private func categoriesField() -> some View {
         Text("Please Select 3 Fav item")
@@ -75,7 +78,9 @@ struct SelectCountriesAndCategoriesView: View {
         
         return  Button(action: {
             //            self.isPickerSelected = !self.isPickerSelected
-            
+            UserDefaults.standard.set(true, forKey: "Loggedin")
+            UserDefaults.standard.synchronize()
+            self.settings.loggedIn = true
         }) {
             Text("Go news Page")
                 .font(.headline)
