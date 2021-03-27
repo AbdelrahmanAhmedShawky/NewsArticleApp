@@ -19,6 +19,13 @@ struct NewsViewCell: View {
             
         }
     }).padding(.all,2.0)
+        .onTapGesture {
+            guard let url = URL(string: item.url ?? "") else {
+              return //be safe
+            }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            
+        }
     }
 }
 

@@ -7,8 +7,8 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
     var apiSession: APIService
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var repositoryList = [NewsModel]()
-    @Published var searchRepositoryList = [NewsModel]()
+    @Published var newsList = [NewsModel]()
+    @Published var searchNewsList = [NewsModel]()
     @Published var isShowLoader: Bool
     @Published var isShowAlert: Bool
     @Published var alertMessage = ""
@@ -39,13 +39,14 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
         }) { (repositoryList) in
             self.isShowLoader = false
             self.isShowAlert = false
-            self.repositoryList = repositoryList.articles
-            print(self.repositoryList)
+            self.newsList = repositoryList.articles
+            print(self.newsList)
         }
         cancellables.insert(cancellable)
     }
         
-    func searchNewsList() {
+    func searchingNewsList() {
+        isShowLoader = true
         let cancellable = self.searchNewsList(searchText: searchTerm,country: selectedCountry, category: selectedCategories[selection])
             .sink(receiveCompletion: { result in
                 switch result {
@@ -62,7 +63,7 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
             }) { finalResult in
                 self.isShowLoader = false
                 self.isShowAlert = false
-                self.searchRepositoryList = finalResult.articles
+                self.searchNewsList = finalResult.articles
             }
         cancellables.insert(cancellable)
     }

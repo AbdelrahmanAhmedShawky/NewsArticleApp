@@ -14,17 +14,18 @@ struct NewsListView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                 TextField("search", text: self.$viewModel.searchTerm, onEditingChanged: { isEditing in
-                                    self.viewModel.searchNewsList()
+//                                    self.viewModel.searchingNewsList()
                                     self.showCancelButton = true
                                 }, onCommit: {
-                                    self.viewModel.searchNewsList()
+                                    self.viewModel.searchingNewsList()
                                     self.showCancelButton = true
                                 }).foregroundColor(.primary)
                                 
                                 Button(action: {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
-                                    self.viewModel.searchRepositoryList.removeAll()
+                                    self.viewModel.getNewsList()
+                                    self.viewModel.searchNewsList.removeAll()
                                     self.showCancelButton = false
                                 }) {
                                     Image(systemName: "xmark.circle.fill").opacity(self.viewModel.searchTerm == "" ? 0 : 1)
@@ -39,7 +40,8 @@ struct NewsListView: View {
                                 Button("Cancel") {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
-                                    self.viewModel.searchRepositoryList.removeAll()
+                                    self.viewModel.getNewsList()
+                                    self.viewModel.searchNewsList.removeAll()
                                     self.showCancelButton = false
                                 }
                                 .foregroundColor(Color(.systemBlue))
@@ -52,10 +54,11 @@ struct NewsListView: View {
                                 Text(self.viewModel.selectedCategories[index]).tag(index)
                             }
                         }.onChangeBackwardsCompatible(of: viewModel.selection) { (newIndex) in
-                            viewModel.getNewsList()
+                            self.viewModel.searchNewsList.isEmpty ?
+                                viewModel.getNewsList() : viewModel.searchingNewsList()
                         }
                         .pickerStyle(SegmentedPickerStyle()).padding()
-                        List(self.viewModel.searchRepositoryList.isEmpty ? self.viewModel.repositoryList : self.viewModel.searchRepositoryList,id:\.title) { item in
+                        List(self.viewModel.searchNewsList.isEmpty ? self.viewModel.newsList : self.viewModel.searchNewsList,id:\.description) { item in
                             NewsViewCell(item: item)
                         }
                         .navigationBarTitle("News Articls")
@@ -74,7 +77,7 @@ struct NewsListView: View {
                     UIApplication.shared.endEditing(true)
                     self.viewModel.searchTerm = ""
                     self.viewModel.getNewsList()
-                    self.viewModel.searchRepositoryList.removeAll()
+                    self.viewModel.searchNewsList.removeAll()
                 }),
                 secondaryButton: .default(Text("Cancel"), action: {
                     // do something
