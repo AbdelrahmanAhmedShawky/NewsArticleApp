@@ -15,7 +15,7 @@ extension NewsListEndPoints: RequestBuilder {
             let request = URLRequest(url: url)
             return request
         case .searchNewsList(let q,let country,let category):
-            guard let url = URL(string: "\(Constants.BASEURL)?qInTitle=\(q)&apiKey=\(Constants.ApiKey)&country=\(country)&category=\(category)")
+            guard let url = URL(string: "\(Constants.BASEURL)?q=\(q)&apiKey=\(Constants.ApiKey)&country=\(country)&category=\(category)")
                 else {
                 preconditionFailure("Invalid URL format")
             }

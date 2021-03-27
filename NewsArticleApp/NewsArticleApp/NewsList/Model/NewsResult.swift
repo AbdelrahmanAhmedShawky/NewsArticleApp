@@ -23,14 +23,3 @@ struct NewsModel: Codable,Identifiable {
 struct SourceModel: Codable {
     let name: String?
 }
-//extension NewsModel {
-//    static func == (lhs: NewsModel, rhs: NewsModel) -> Bool {
-//      return lhs.title == rhs.title && lhs.description == rhs.description
-//    }
-//}
-
-
-//"source": {
-//               "id": null,
-//               "name": "STAT"
-//           },

@@ -47,7 +47,7 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
         
     func searchingNewsList() {
         isShowLoader = true
-        let cancellable = self.searchNewsList(searchText: searchTerm,country: selectedCountry, category: selectedCategories[selection])
+        let cancellable = self.searchNewsList(searchText: searchTerm.trimmingCharacters(in: .whitespacesAndNewlines),country: selectedCountry, category: selectedCategories[selection])
             .sink(receiveCompletion: { result in
                 switch result {
                 case .failure(let error):
