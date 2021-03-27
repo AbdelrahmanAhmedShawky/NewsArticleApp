@@ -12,7 +12,7 @@ struct SelectCountriesAndCategoriesView: View {
     @State var goTheHome: Int? = nil
     
     private func categoriesField() -> some View {
-        Text("Please Select 3 Fav item")
+        Text("Please Select 3 Favorite")
             .font(.headline)
             .foregroundColor(Color(UIColor.systemBackground))
             .frame(minWidth: 100, maxWidth: UIScreen.main.bounds.size.width/1.2, minHeight: 50)
@@ -69,7 +69,7 @@ struct SelectCountriesAndCategoriesView: View {
         return
             Picker("", selection: $selectedCountry) {
                 ForEach(0 ..< self.viewModel.countriesList.count) {
-                    self.pickerRow(self.self.viewModel.countriesList[$0])
+                    self.pickerRow(self.viewModel.countriesList[$0])
                 }
             }.labelsHidden().frame(width: UIScreen.main.bounds.size.width/1.2, height: UIScreen.main.bounds.size.height/4)
     }
@@ -77,10 +77,20 @@ struct SelectCountriesAndCategoriesView: View {
     private func goNewsPageButton() -> some View {
         
         return  Button(action: {
-            //            self.isPickerSelected = !self.isPickerSelected
-            UserDefaults.standard.set(true, forKey: "Loggedin")
-            UserDefaults.standard.synchronize()
-            self.settings.loggedIn = true
+            let isSelectedCountry = selectedCountry != 0
+            let isSelectedCategory = self.selectedCategories.count == 3
+
+            if isSelectedCategory && isSelectedCountry {
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(selectedCategories, forKey: "selectedCategories")
+                userDefaults.set(self.viewModel.countriesList[selectedCountry].country, forKey: "selectedCountry")
+                userDefaults.set(true, forKey: "isSelected")
+                UserDefaults.standard.synchronize()
+                self.settings.isSelected = true
+                
+            } else {
+                viewModel.isShowAlert = true
+            }
         }) {
             Text("Go news Page")
                 .font(.headline)
@@ -107,6 +117,17 @@ struct SelectCountriesAndCategoriesView: View {
         }
         .onAppear {
             
+        }.alert(isPresented: $viewModel.isShowAlert) {
+            Alert(
+                title: Text(""),
+                message: Text($viewModel.alertMessage.wrappedValue),
+                primaryButton: .destructive(Text("You should select country and 3 Favorite item"), action: {
+                    // ok action
+                }),
+                secondaryButton: .default(Text("Cancel"), action: {
+                    // do something
+                })
+            )
         }
     }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 struct NewsListView: View {
     @ObservedObject var viewModel = NewsResultViewModel()
     @State private var showCancelButton: Bool = false
+    
     var body: some View {
         LoadingView(isShowing: .constant($viewModel.isShowLoader.wrappedValue)) {
             NavigationView {
@@ -46,6 +47,14 @@ struct NewsListView: View {
                         }
                         .padding(.horizontal)
                         .navigationBarHidden(self.showCancelButton)
+                        Picker(selection: $viewModel.selection, label: Text("")) {
+                            ForEach(0..<viewModel.selectedCategories.count, id: \.self) { index in
+                                Text(self.viewModel.selectedCategories[index]).tag(index)
+                            }
+                        }.onChangeBackwardsCompatible(of: viewModel.selection) { (newIndex) in
+                            viewModel.getNewsList()
+                        }
+                        .pickerStyle(SegmentedPickerStyle()).padding()
                         List(self.viewModel.searchRepositoryList.isEmpty ? self.viewModel.repositoryList : self.viewModel.searchRepositoryList,id:\.title) { item in
                             NewsViewCell(item: item)
                         }

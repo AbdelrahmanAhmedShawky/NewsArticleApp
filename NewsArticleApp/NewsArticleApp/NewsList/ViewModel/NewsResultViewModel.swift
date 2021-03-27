@@ -12,44 +12,21 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
     @Published var isShowLoader: Bool
     @Published var isShowAlert: Bool
     @Published var alertMessage = ""
+    @Published var selection = 0
     var searchTerm: String = ""
-    
+    let selectedCountry = UserDefaults.standard.string(forKey: "selectedCountry") ?? "us"
+    let selectedCategories: [String] = UserDefaults.standard.object(forKey: "selectedCategories") as? [String] ?? []
     init(apiSession: APIService = APISession()) {
         self.apiSession = apiSession
         isShowLoader = false
         isShowAlert = false
-//        gettingData()
         getNewsList()
     }
 
-//    func gettingData(){
-//
-//        let url = URL(string: "https://newsapi.org/v2/top-headlines?apiKey=f0b310a6e5f349838307ddd53bfa66c0&country=de&category=business")!
-//        let session = URLSession.shared
-//        let request = URLRequest(url: url)
-//        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-//            guard error == nil else {
-//                return
-//            }
-//            guard let data = data else {
-//                return
-//            }
-//            do {
-//                 let decoder = JSONDecoder()
-//                decoder.keyDecodingStrategy = .convertFromSnakeCase
-//                let response = try decoder.decode(NewsResult.self, from: data)
-//                print(response)
-//
-//            } catch {
-//                print(error)
-//            }
-//        })
-//        task.resume()
-//    }
-
     func getNewsList() {
         isShowLoader = true
-        let cancellable = self.getNewsList().sink(receiveCompletion: { result in
+        
+        let cancellable = self.getNewsList(country: selectedCountry, category: selectedCategories[selection]).sink(receiveCompletion: { result in
             switch result {
             case .failure(let error):
                 self.isShowLoader = false
@@ -69,7 +46,7 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
     }
         
     func searchNewsList() {
-        let cancellable = self.searchNewsList(searchText: searchTerm)
+        let cancellable = self.searchNewsList(searchText: searchTerm,country: selectedCountry, category: selectedCategories[selection])
             .sink(receiveCompletion: { result in
                 switch result {
                 case .failure(let error):

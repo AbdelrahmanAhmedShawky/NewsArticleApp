@@ -23,10 +23,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = StartView()
         let settings = UserSettings()
         
-        if UserDefaults.standard.bool(forKey: "Loggedin") {
-            settings.loggedIn = true
+        if UserDefaults.standard.bool(forKey: "isSelected") {
+            settings.isSelected = true
         } else {
-            settings.loggedIn = false
+            settings.isSelected = false
         }
         
         // Use a UIHostingController as window root view controller.
@@ -73,7 +73,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 class UserSettings: ObservableObject {
     
-    @Published var loggedIn : Bool = false
+    @Published var isSelected : Bool = false
 }
 
 struct StartView: View {
@@ -82,7 +82,7 @@ struct StartView: View {
     
     var body: some View {
                 
-        if settings.loggedIn {
+        if settings.isSelected {
             return AnyView(NewsListView())
         } else {
             return AnyView(SelectCountriesAndCategoriesView())
