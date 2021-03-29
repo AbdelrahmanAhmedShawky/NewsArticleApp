@@ -24,4 +24,4 @@ This sample app to demonstrate some aspect of clean architecture using SwiftUI ,
 
 
 # License
-Distributed under the MIT License. Copyright (c) 2020 Abdelrahman Ahmed Shawky
+Distributed under the MIT License. Copyright (c) 2021 Abdelrahman Ahmed Shawky
