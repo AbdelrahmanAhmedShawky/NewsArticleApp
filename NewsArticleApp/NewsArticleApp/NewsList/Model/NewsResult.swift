@@ -1,16 +1,14 @@
 import Foundation
 
 struct NewsResult: Codable {
-//    let id: Int
     let articles: [NewsModel]
     let totalResults: Int
 }
 
 // MARK: - NewsModel
 
-struct NewsModel: Codable,Identifiable {
-    
-    let id: Int = 0
+struct NewsModel: Codable {
+   
     let title: String?
     let description: String?
     let source: SourceModel?
