@@ -5,9 +5,9 @@ struct NewsListView: View {
     @State private var showCancelButton: Bool = false
     @ObservedObject var favoriteItems = FavoriteItems()
     @State private var showfav = false
+    
     @ViewBuilder
-    var searchView:some View {
-        
+    private var searchView:some View {
         HStack {
             HStack {
                 Image(systemName: "magnifyingglass")
@@ -49,7 +49,7 @@ struct NewsListView: View {
     }
     
     @ViewBuilder
-    var segmantControl:some View {
+    private var segmantControl:some View {
         Picker(selection: $viewModel.selection, label: Text("")) {
             ForEach(0..<viewModel.selectedCategories.count, id: \.self) { index in
                 Text(self.viewModel.selectedCategories[index]).tag(index)
@@ -61,11 +61,11 @@ struct NewsListView: View {
         .pickerStyle(SegmentedPickerStyle()).padding()
     }
     
-    var emptyListView: some View {
+    private var emptyListView: some View {
         Text("no data...").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/1.5, alignment: .center)
     }
     
-    var NewsListView: some View {
+    private var NewsListView: some View {
         List(viewModel.searchTerm.isEmpty ? self.viewModel.newsList : self.viewModel.searchNewsList,id:\.description) { item in
             VStack {
                 NewsViewCell(item: item)
@@ -89,7 +89,7 @@ struct NewsListView: View {
     }
     
     @ViewBuilder
-    var listView: some View {
+   private var listView: some View {
         if viewModel.searchTerm.isEmpty {
             if self.viewModel.newsList.isEmpty {
                 emptyListView

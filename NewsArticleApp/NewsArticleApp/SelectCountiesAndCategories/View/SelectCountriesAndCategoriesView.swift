@@ -10,7 +10,7 @@ struct SelectCountriesAndCategoriesView: View {
     @State private var selectedCountryValue:Country? = nil
     @State var selectedCategories: [String] = []
     
-    private func categoriesField() -> some View {
+    private var categoriesField: some View {
         Text("Please Select 3 Favorite")
             .font(.headline)
             .foregroundColor(Color(UIColor.systemBackground))
@@ -19,7 +19,7 @@ struct SelectCountriesAndCategoriesView: View {
                             .shadow( color: Color.gray.opacity(0.35), radius: 15, x: 0, y: 0))
     }
     
-    private func gridView()  -> some View {
+    private var gridView: some View {
         GridStack(minCellWidth: UIScreen.main.bounds.size.width/3.3, spacing: 2, numItems: self.viewModel.categoriesList.count) { index, cellWidth in
             Text("\(self.viewModel.categoriesList[index])")
                 .foregroundColor(.white)
@@ -36,7 +36,7 @@ struct SelectCountriesAndCategoriesView: View {
         }.padding([.leading, .trailing], 4)
     }
     
-    private func countriesField() -> some View {
+    private var countriesField: some View {
         return Text(selectedCountryValue?.name ?? "Please Select Country")
             .font(.headline)
             .foregroundColor(Color(UIColor.systemBackground))
@@ -44,7 +44,7 @@ struct SelectCountriesAndCategoriesView: View {
     }
     
     
-    private func pickerFooterButton() -> some  View {
+    private var pickerFooterButton: some  View {
         return HStack {
             Button(action: {
                 self.selectedCountryValue = self.viewModel.countriesList[self.selectedCountry]
@@ -64,7 +64,7 @@ struct SelectCountriesAndCategoriesView: View {
         }
     }
     
-    private func pickerView() -> some View {
+    private var pickerView: some View {
         return
             Picker("", selection: $selectedCountry) {
                 ForEach(0 ..< self.viewModel.countriesList.count) {
@@ -73,7 +73,7 @@ struct SelectCountriesAndCategoriesView: View {
             }.labelsHidden().frame(width: UIScreen.main.bounds.size.width/1.2, height: UIScreen.main.bounds.size.height/4)
     }
     
-    private func goNewsPageButton() -> some View {
+    private var goNewsPageButton: some View {
         
         return  Button(action: {
             let isSelectedCountry = selectedCountry != 0
@@ -102,16 +102,16 @@ struct SelectCountriesAndCategoriesView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
-               categoriesField()
-               gridView()
-               countriesField()
+               categoriesField
+               gridView
+               countriesField
                 VStack{
-                  pickerView().padding([.leading, .trailing], 20)
-                  pickerFooterButton().padding([.leading, .trailing], 20)
+                  pickerView.padding([.leading, .trailing], 20)
+                  pickerFooterButton.padding([.leading, .trailing], 20)
                 }.background( RoundedRectangle(cornerRadius: 15)
                                 .shadow( color: Color.gray.opacity(0.35), radius: 15, x: 0, y: 0))
                 
-                goNewsPageButton().padding(8.0)
+                goNewsPageButton.padding(8.0)
             }.navigationBarTitle("Selection screen")
         }
         .onAppear {
