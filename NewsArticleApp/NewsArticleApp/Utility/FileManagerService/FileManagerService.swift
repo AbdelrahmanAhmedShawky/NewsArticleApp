@@ -13,7 +13,6 @@ struct FileManagerService: FileManagerServiceProtocol {
     func load<T: Decodable>(resource: FileManagerResource<T>) -> AnyPublisher<T, ApiErorr> {
         guard let url =  Bundle.main.path(forResource: resource.fileName, ofType: "json") else {
             return Fail(error: ApiErorr.unKnown).eraseToAnyPublisher()
-            
         }
         return Future<T, ApiErorr> { resolve in
             do {
@@ -28,6 +27,4 @@ struct FileManagerService: FileManagerServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
-    
 }

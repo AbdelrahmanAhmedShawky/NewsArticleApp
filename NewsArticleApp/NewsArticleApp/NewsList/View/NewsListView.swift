@@ -70,15 +70,20 @@ struct NewsListView: View {
             VStack {
                 NewsViewCell(item: item)
                 Button(action: {
-                    if self.favoriteItems.favItems.contains(where: {$0.title == item.title }) {
-                        self.favoriteItems.favItems.removeAll(where: { $0.title == item.title })
-                        UserNewsFavoritesManager.shared.favoritesNews = self.favoriteItems.favItems
+                    if self.viewModel.newsFevoriteList.contains(where: {$0.title == item.title }) {
+                        self.viewModel.deleteFevoriteItem(title: item.title ?? "", description: item.description ?? "", sourceName: item.source?.name ?? "", url: item.url ?? "", urlToImage: item.urlToImage ?? "", publishedAt: item.publishedAt ?? "", content: item.content ?? "")
                     }else {
-                        self.favoriteItems.favItems.append(item)
-                        UserNewsFavoritesManager.shared.favoritesNews = self.favoriteItems.favItems
+                        self.viewModel.addFevoriteList(title: item.title ?? "", description: item.description ?? "", sourceName: item.source?.name ?? "", url: item.url ?? "", urlToImage: item.urlToImage ?? "", publishedAt: item.publishedAt ?? "", content: item.content ?? "")
                     }
+//                    if self.favoriteItems.favItems.contains(where: {$0.title == item.title }) {
+//                        self.favoriteItems.favItems.removeAll(where: { $0.title == item.title })
+//                        UserNewsFavoritesManager.shared.favoritesNews = self.favoriteItems.favItems
+//                    }else {
+//                        self.favoriteItems.favItems.append(item)
+//                        UserNewsFavoritesManager.shared.favoritesNews = self.favoriteItems.favItems
+//                    }
                 }) {
-                    Text(self.favoriteItems.favItems.contains(where: {$0.title == item.title }) ? "favorites" :"Add to favorites")
+                    Text(self.viewModel.newsFevoriteList.contains(where: {$0.title == item.title }) ? "favorites" :"Add to favorites")
                         .font(.headline)
                         .foregroundColor(self.favoriteItems.favItems.contains(where: {$0.title == item.title }) ? Color.green : Color.blue)
                         .frame(minWidth: 100, maxWidth: UIScreen.main.bounds.size.width/1.2, minHeight: 50)

@@ -2,13 +2,14 @@ import SwiftUI
 
 struct FavoritesNewsView: View {
     @ObservedObject var favoriteItems = FavoriteItems()
+    @ObservedObject var viewModel = FavoritesNewsViewModel()
     
     var emptyListView: some View {
         Text("no data...").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/1.5, alignment: .center)
     }
     
     var NewsListView: some View {
-        List(favoriteItems.favItems,id:\.description) { item in
+        List(self.viewModel.newsFavoritesList,id: \.description) { item in
             NewsViewCell(item: item)
         }
     }

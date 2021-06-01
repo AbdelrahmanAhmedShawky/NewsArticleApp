@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DC08E8926662BAC008C1B72 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC08E8826662BAC008C1B72 /* CoreDataHelper.swift */; };
+		2DC08E8F26662D15008C1B72 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC08E8E26662D15008C1B72 /* KeyboardResponder.swift */; };
+		2DC08E9726662D57008C1B72 /* DBHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC08E9626662D57008C1B72 /* DBHelperProtocol.swift */; };
+		2DC08E9D26663D54008C1B72 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC08E9C26663D54008C1B72 /* DataManager.swift */; };
+		2DC08EA626664460008C1B72 /* FavoritesNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC08EA526664460008C1B72 /* FavoritesNewsViewModel.swift */; };
+		2DE8FC9A265A3F0A003C515E /* FavoriteList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2DE8FC98265A3F0A003C515E /* FavoriteList.xcdatamodeld */; };
+		2DE8FC9F265A4752003C515E /* TodoMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE8FC9E265A4752003C515E /* TodoMO.swift */; };
 		BC89A5FC260E16680036CC59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89A5FB260E16680036CC59 /* AppDelegate.swift */; };
 		BC89A5FE260E16680036CC59 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89A5FD260E16680036CC59 /* SceneDelegate.swift */; };
 		BC89A600260E16680036CC59 /* SelectCountriesAndCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC89A5FF260E16680036CC59 /* SelectCountriesAndCategoriesView.swift */; };
@@ -64,6 +71,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DC08E8826662BAC008C1B72 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		2DC08E8E26662D15008C1B72 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		2DC08E9626662D57008C1B72 /* DBHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelperProtocol.swift; sourceTree = "<group>"; };
+		2DC08E9C26663D54008C1B72 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		2DC08EA526664460008C1B72 /* FavoritesNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNewsViewModel.swift; sourceTree = "<group>"; };
+		2DE8FC99265A3F0A003C515E /* FavoriteList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteList.xcdatamodel; sourceTree = "<group>"; };
+		2DE8FC9E265A4752003C515E /* TodoMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMO.swift; sourceTree = "<group>"; };
 		BC89A5F8260E16680036CC59 /* NewsArticleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsArticleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC89A5FB260E16680036CC59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC89A5FD260E16680036CC59 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +148,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2DC08E8D26662C85008C1B72 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				2DC08E8E26662D15008C1B72 /* KeyboardResponder.swift */,
+				2DC08E9626662D57008C1B72 /* DBHelperProtocol.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		2DC08E9B26663D3F008C1B72 /* DataBaseManger */ = {
+			isa = PBXGroup;
+			children = (
+				2DC08E9C26663D54008C1B72 /* DataManager.swift */,
+			);
+			path = DataBaseManger;
+			sourceTree = "<group>";
+		};
+		2DC08EA426664436008C1B72 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2DC08EA526664460008C1B72 /* FavoritesNewsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2DE8FC94265A3E5E003C515E /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				2DE8FC98265A3F0A003C515E /* FavoriteList.xcdatamodeld */,
+				2DE8FC9E265A4752003C515E /* TodoMO.swift */,
+				2DC08E8826662BAC008C1B72 /* CoreDataHelper.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		BC89A5EF260E16670036CC59 = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +206,8 @@
 		BC89A5FA260E16680036CC59 /* NewsArticleApp */ = {
 			isa = PBXGroup;
 			children = (
+				2DC08E8D26662C85008C1B72 /* Helper */,
+				2DE8FC94265A3E5E003C515E /* CoreData */,
 				BC8DA75A260FCB71001E4227 /* NewsFavorites */,
 				BC89A6B0260F1A480036CC59 /* NewsList */,
 				BC89A660260E4F5E0036CC59 /* SelectCountiesAndCategories */,
@@ -229,6 +280,7 @@
 		BC89A63B260E25CB0036CC59 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				2DC08E9B26663D3F008C1B72 /* DataBaseManger */,
 				BC8DA750260FA573001E4227 /* UserDefault.swift */,
 				BC89A644260E42DB0036CC59 /* ApiService */,
 				BC89A63C260E25D90036CC59 /* FileManagerService */,
@@ -401,6 +453,7 @@
 		BC8DA75A260FCB71001E4227 /* NewsFavorites */ = {
 			isa = PBXGroup;
 			children = (
+				2DC08EA426664436008C1B72 /* ViewModel */,
 				BC8DA75C260FCBB7001E4227 /* DataStore */,
 				BC8DA75B260FCBAE001E4227 /* View */,
 			);
@@ -556,6 +609,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC89A6DC260F37C60036CC59 /* NewsViewCell.swift in Sources */,
+				2DC08E8F26662D15008C1B72 /* KeyboardResponder.swift in Sources */,
 				BC89A64C260E42DC0036CC59 /* ApiErorr.swift in Sources */,
 				BC89A5FC260E16680036CC59 /* AppDelegate.swift in Sources */,
 				BC89A5FE260E16680036CC59 /* SceneDelegate.swift in Sources */,
@@ -563,6 +617,8 @@
 				BC89A682260E7E390036CC59 /* GridStack.swift in Sources */,
 				BC89A6A7260EA4DF0036CC59 /* extension+UIApplication.swift in Sources */,
 				BC89A640260E26760036CC59 /* FileManagerService.swift in Sources */,
+				2DC08E9726662D57008C1B72 /* DBHelperProtocol.swift in Sources */,
+				2DC08EA626664460008C1B72 /* FavoritesNewsViewModel.swift in Sources */,
 				BC8DA756260FAFF0001E4227 /* extension+View.swift in Sources */,
 				BC8DA751260FA573001E4227 /* UserDefault.swift in Sources */,
 				BC89A69C260EA4B30036CC59 /* SpinnerView.swift in Sources */,
@@ -578,11 +634,15 @@
 				BC89A664260E4FE10036CC59 /* SelectCountriesAndCategoriesViewModel.swift in Sources */,
 				BC89A600260E16680036CC59 /* SelectCountriesAndCategoriesView.swift in Sources */,
 				BC8DA763260FD838001E4227 /* FavoritesNewsView.swift in Sources */,
+				2DC08E9D26663D54008C1B72 /* DataManager.swift in Sources */,
 				BC89A6A8260EA4DF0036CC59 /* Constants.swift in Sources */,
 				BC89A64A260E42DC0036CC59 /* APISession.swift in Sources */,
+				2DE8FC9F265A4752003C515E /* TodoMO.swift in Sources */,
 				BC89A658260E4D6C0036CC59 /* CategoriesModel.swift in Sources */,
 				BC89A64B260E42DC0036CC59 /* RequestBuilder.swift in Sources */,
 				BC89A69E260EA4B30036CC59 /* LoadingView.swift in Sources */,
+				2DE8FC9A265A3F0A003C515E /* FavoriteList.xcdatamodeld in Sources */,
+				2DC08E8926662BAC008C1B72 /* CoreDataHelper.swift in Sources */,
 				BC89A6D6260F35940036CC59 /* NewsResultService.swift in Sources */,
 				BC89A6B5260F24560036CC59 /* NewsResult.swift in Sources */,
 			);
@@ -913,6 +973,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2DE8FC98265A3F0A003C515E /* FavoriteList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2DE8FC99265A3F0A003C515E /* FavoriteList.xcdatamodel */,
+			);
+			currentVersion = 2DE8FC99265A3F0A003C515E /* FavoriteList.xcdatamodel */;
+			path = FavoriteList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BC89A5F0260E16670036CC59 /* Project object */;
 }

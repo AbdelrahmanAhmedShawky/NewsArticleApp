@@ -61,11 +61,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }
-
     func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
+        CoreDataHelper.shared.saveContext()
     }
 
 
@@ -79,11 +76,11 @@ class UserSettings: ObservableObject {
 struct StartView: View {
     
     @EnvironmentObject var settings: UserSettings
-    
+    let context = CoreDataHelper.shared.persistentContainer.viewContext
     var body: some View {
                 
         if settings.isSelected {
-            return AnyView(NewsListView())
+            return AnyView(NewsListView() .environment(\.managedObjectContext, context))
         } else {
             return AnyView(SelectCountriesAndCategoriesView())
         }

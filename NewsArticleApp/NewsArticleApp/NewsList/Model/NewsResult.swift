@@ -16,6 +16,8 @@ struct NewsModel: Codable {
     let urlToImage: String?
     let publishedAt: String?
     let content: String?
+    var isCompleted = false
+//    var id = UUID()
 }
 
 struct SourceModel: Codable {
