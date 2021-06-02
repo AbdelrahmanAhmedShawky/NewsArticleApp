@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 protocol FavoritesListViewModelProtocol {
-    var newsFavoritesList: [NewsModelDB] { get }
+    var newsFavoritesList: [NewsModel] { get }
     func fetchFavoritesList()
 }
 
 final class FavoritesNewsViewModel: ObservableObject {
-    @Published var newsFavoritesList = [NewsModelDB]()
+    @Published var newsFavoritesList = [NewsModel]()
     
     var dataManager: DataManagerProtocol
     

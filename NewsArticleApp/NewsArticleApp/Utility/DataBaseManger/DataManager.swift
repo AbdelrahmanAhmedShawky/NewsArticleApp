@@ -9,14 +9,14 @@ import Foundation
 import CoreData
 
 protocol DataManagerProtocol {
-    func fetchFavoritesListList() -> [NewsModelDB]
+    func fetchFavoritesListList() -> [NewsModel]
     func addFavoritesItem(
         title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
     func deleteFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
 }
 
 extension DataManagerProtocol {
-    func fetchFavoritesListList() -> [NewsModelDB] {
+    func fetchFavoritesListList() -> [NewsModel] {
         fetchFavoritesListList()
     }
 }
@@ -28,7 +28,7 @@ class DataManager {
     
     private init() { }
     
-    private func getItem(for todo: NewsModelDB) -> TodoMO? {
+    private func getItem(for todo: NewsModel) -> TodoMO? {
         let predicate =  NSPredicate(format: "title == %@", todo.title ?? "")
         let result = dbHelper.fetchFirst(TodoMO.self, predicate: predicate)
         switch result {
@@ -44,7 +44,7 @@ class DataManager {
 extension DataManager: DataManagerProtocol {
         
     func deleteFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
-        guard let todoMO = getItem(for: NewsModelDB(title: title, description: description, source: SourceModel(name: sourceName), url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content)) else {
+        guard let todoMO = getItem(for: NewsModel(title: title, description: description, source: SourceModel(name: sourceName), url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content)) else {
             return
         }
         dbHelper.delete(todoMO)
@@ -64,7 +64,7 @@ extension DataManager: DataManagerProtocol {
         dbHelper.create(newTodo)
     }
     
-    func fetchFavoritesListList() -> [NewsModelDB] {
+    func fetchFavoritesListList() -> [NewsModel] {
         let result: Result<[TodoMO], Error> = dbHelper.fetch(TodoMO.self)
         switch result {
         case .success(let todoMOs):

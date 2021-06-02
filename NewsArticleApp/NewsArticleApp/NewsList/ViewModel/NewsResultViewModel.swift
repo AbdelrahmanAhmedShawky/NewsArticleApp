@@ -28,7 +28,7 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
         }
     }
     
-    @Published var newsFevoriteList = [NewsModelDB]()
+    @Published var newsFevoriteList = [NewsModel]()
     var searchTerm: String = ""
     let selectedCountry = UserDefaults.standard.string(forKey: "selectedCountry") ?? "us"
     let selectedCategories: [String] = UserDefaults.standard.object(forKey: "selectedCategories") as? [String] ?? []

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct FavoritesNewsView: View {
-//    @ObservedObject var favoriteItems = FavoriteItems()
     @ObservedObject var viewModel : FavoritesNewsViewModel
     
     var emptyListView: some View {
@@ -9,7 +8,7 @@ struct FavoritesNewsView: View {
     }
     
     var NewsListView: some View {
-        List(self.viewModel.newsFavoritesList,id: \.id) { item in
+        List(self.viewModel.newsFavoritesList,id: \.title) { item in
             NewsViewCell(item: NewsModel(title: item.title ?? "", description: item.description ?? "", source: item.source, url: item.url ?? "", urlToImage: item.urlToImage ?? "", publishedAt: item.publishedAt ?? "", content: item.content ?? ""))
         }
     }
@@ -21,7 +20,6 @@ struct FavoritesNewsView: View {
         }else{
             NewsListView
         }
-        
     }
         
     var body: some View {
