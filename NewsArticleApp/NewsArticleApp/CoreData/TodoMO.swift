@@ -6,8 +6,8 @@
 //
 
 extension TodoMO {
-    func convertToTodo() -> NewsModel {
-        NewsModel(
+    func convertToTodo() -> NewsModelDB {
+        NewsModelDB(
             title: title, description: description, source: SourceModel(name: sourceName), url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content
         )
     }

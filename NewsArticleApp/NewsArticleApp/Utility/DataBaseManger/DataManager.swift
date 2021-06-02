@@ -9,16 +9,15 @@ import Foundation
 import CoreData
 
 protocol DataManagerProtocol {
-    func fetchTodoList(includingCompleted: Bool) -> [NewsModel]
-    func addTodo(
+    func fetchFavoritesListList() -> [NewsModelDB]
+    func addFavoritesItem(
         title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
-    func deleteTodo(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
-    func toggleIsCompleted(for item: NewsModel)
+    func deleteFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
 }
 
 extension DataManagerProtocol {
-    func fetchTodoList(includingCompleted: Bool = false) -> [NewsModel] {
-        fetchTodoList(includingCompleted: includingCompleted)
+    func fetchFavoritesListList() -> [NewsModelDB] {
+        fetchFavoritesListList()
     }
 }
 
@@ -29,10 +28,8 @@ class DataManager {
     
     private init() { }
     
-    private func getTodoMO(for todo: NewsModel) -> TodoMO? {
-        let predicate = NSPredicate(
-            format: "uuid = %@",
-            UUID() as CVarArg)
+    private func getItem(for todo: NewsModelDB) -> TodoMO? {
+        let predicate =  NSPredicate(format: "title == %@", todo.title ?? "")
         let result = dbHelper.fetchFirst(TodoMO.self, predicate: predicate)
         switch result {
         case .success(let todoMO):
@@ -45,32 +42,19 @@ class DataManager {
 
 // MARK: - DataManagerProtocol
 extension DataManager: DataManagerProtocol {
-    func toggleIsCompleted(for item: NewsModel) {
-        func toggleIsCompleted(for item: NewsModel) {
-            guard let todoMO = getTodoMO(for: item) else { return }
-            todoMO.isCompleted.toggle()
-            dbHelper.update(todoMO)
+        
+    func deleteFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
+        guard let todoMO = getItem(for: NewsModelDB(title: title, description: description, source: SourceModel(name: sourceName), url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content)) else {
+            return
         }
+        dbHelper.delete(todoMO)
     }
     
-    
-    func deleteTodo(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
+    func addFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
         let entity = TodoMO.entity()
         let newTodo = TodoMO(entity: entity, insertInto: dbHelper.context)
         newTodo.title = title
-        newTodo.content = content
-        newTodo.descriptions = description
-        newTodo.sourceName = sourceName
-        newTodo.publishedAt = publishedAt
-        newTodo.url = url
-        newTodo.urlToImage = urlToImage
-        dbHelper.delete(newTodo)
-    }
-    
-    func addTodo(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
-        let entity = TodoMO.entity()
-        let newTodo = TodoMO(entity: entity, insertInto: dbHelper.context)
-        newTodo.title = title
+        newTodo.uuid = UUID()
         newTodo.content = content
         newTodo.descriptions = description
         newTodo.sourceName = sourceName
@@ -80,9 +64,8 @@ extension DataManager: DataManagerProtocol {
         dbHelper.create(newTodo)
     }
     
-    func fetchTodoList(includingCompleted: Bool = false) -> [NewsModel] {
-        let predicate = includingCompleted ? nil : NSPredicate(format: "isCompleted == false")
-        let result: Result<[TodoMO], Error> = dbHelper.fetch(TodoMO.self, predicate: predicate)
+    func fetchFavoritesListList() -> [NewsModelDB] {
+        let result: Result<[TodoMO], Error> = dbHelper.fetch(TodoMO.self)
         switch result {
         case .success(let todoMOs):
             return todoMOs.map { $0.convertToTodo() }

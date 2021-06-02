@@ -9,25 +9,24 @@ import Foundation
 import Combine
 
 protocol FavoritesListViewModelProtocol {
-    var newsFavoritesList: [NewsModel] { get }
-    func fetchTodos()
+    var newsFavoritesList: [NewsModelDB] { get }
+    func fetchFavoritesList()
 }
 
 final class FavoritesNewsViewModel: ObservableObject {
-    @Published var newsFavoritesList = [NewsModel]()
+    @Published var newsFavoritesList = [NewsModelDB]()
     
     var dataManager: DataManagerProtocol
     
     init(dataManager: DataManagerProtocol = DataManager.shared) {
         self.dataManager = dataManager
-        fetchTodos()
+        fetchFavoritesList()
     }
 }
 
-// MARK: - TodoListViewModelProtocol
+// MARK: - FavoritesListViewModelProtocol
 extension FavoritesNewsViewModel: FavoritesListViewModelProtocol {
-    func fetchTodos() {
-        newsFavoritesList = dataManager.fetchTodoList()
+    func fetchFavoritesList() {
+        newsFavoritesList = dataManager.fetchFavoritesListList()
     }
-    
 }

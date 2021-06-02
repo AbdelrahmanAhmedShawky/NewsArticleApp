@@ -41,13 +41,6 @@ class CoreDataHelper: DBHelperProtocol {
     }
     
     func fetchFirst<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate?) -> Result<T?, Error> {
-//        let result = fetch(objectType, predicate: predicate, limit: 1)
-//        switch result {
-//        case .success(let todos):
-//            return .success(todos.first as? T)
-//        case .failure(let error):
-//            return .failure(error)
-//        }
         let request = objectType.fetchRequest()
         request.predicate = predicate
         request.fetchLimit = 1
@@ -69,6 +62,7 @@ class CoreDataHelper: DBHelperProtocol {
     
     func delete(_ object: NSManagedObject) {
         context.delete(object)
+        saveContext()
     }
     
     // MARK: - Core Data
