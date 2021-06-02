@@ -87,7 +87,7 @@ struct NewsListView: View {
     }
     
     @ViewBuilder
-   private var listView: some View {
+    private var listView: some View {
         if viewModel.searchTerm.isEmpty {
             if self.viewModel.newsList.isEmpty {
                 emptyListView
@@ -109,20 +109,27 @@ struct NewsListView: View {
             NavigationView {
                 Group {
                     VStack {
+                        Spacer()
+                        Spacer()
                         searchView
                         segmantControl
                         listView
                     }
-                }.navigationBarTitle("News Articls").toolbar {
-                    Button("your Favorites") {
+                }
+                .navigationBarTitle(Text("News Articls"),displayMode: .inline)
+                .navigationBarItems(
+                    trailing: Button(action: {
+                    // Actions
                         print("Help tapped!")
                         self.showfav = true
-                    }.sheet(isPresented: self.$showfav) {
-                        FavoritesNewsView(viewModel: FavoritesNewsViewModel())
-                    }
-                }
+                        self.viewModel.getFevoriteList()
+                    }, label: { Text("Favorites") })
+                )
                 .resignKeyboardOnDragGesture()
             }
+            .sheet(isPresented: $showfav, onDismiss: {
+                    self.viewModel.getFevoriteList()
+            }) { FavoritesNewsView(viewModel: FavoritesNewsViewModel(), showSheetView: self.$showfav) }
             .onAppear {
                 self.viewModel.getNewsList()
             }
@@ -147,5 +154,32 @@ struct NewsListView: View {
 struct NewsListView_Previews: PreviewProvider {
     static var previews: some View {
         NewsListView()
+    }
+}
+
+extension View {
+    func navigatePush(whenTrue toggle: Binding<Bool>) -> some View {
+        NavigationLink(
+            destination: self,
+            isActive: toggle
+        ) { EmptyView() }
+    }
+    
+    func navigatePush<H: Hashable>(when binding: Binding<H>,
+                                   matches: H) -> some View {
+        NavigationLink(
+            destination: self,
+            tag: matches,
+            selection: Binding<H?>(binding)
+        ) { EmptyView() }
+    }
+    
+    func navigatePush<H: Hashable>(when binding: Binding<H?>,
+                                   matches: H) -> some View {
+        NavigationLink(
+            destination: self,
+            tag: matches,
+            selection: binding
+        ) { EmptyView() }
     }
 }
