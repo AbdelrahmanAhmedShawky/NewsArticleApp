@@ -71,9 +71,9 @@ struct NewsListView: View {
                 NewsViewCell(item: item)
                 Button(action: {
                     if self.viewModel.newsFevoriteList.contains(where: {$0.title == item.title }) {
-                        self.viewModel.deleteFevoriteItem(title: item.title ?? "", description: item.description ?? "", sourceName: item.source?.name ?? "", url: item.url ?? "", urlToImage: item.urlToImage ?? "", publishedAt: item.publishedAt ?? "", content: item.content ?? "")
+                        self.viewModel.deleteFevoriteItem(item: item)
                     }else {
-                        self.viewModel.addFevoriteList(title: item.title ?? "", description: item.description ?? "", sourceName: item.source?.name ?? "", url: item.url ?? "", urlToImage: item.urlToImage ?? "", publishedAt: item.publishedAt ?? "", content: item.content ?? "")
+                        self.viewModel.addFevoriteList(item: item)
                     }
                 }) {
                     Text(self.viewModel.newsFevoriteList.contains(where: {$0.title == item.title }) ? "favorites" :"Add to favorites")

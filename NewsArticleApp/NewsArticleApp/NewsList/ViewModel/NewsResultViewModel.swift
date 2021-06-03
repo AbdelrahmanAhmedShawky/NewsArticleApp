@@ -3,9 +3,9 @@ import Combine
 import UIKit
 
 protocol NewFavoriteViewModelProtocol {
-    func addFevoriteList(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
+    func addFevoriteList(item: NewsModel)
     func getFevoriteList()
-    func deleteFevoriteItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
+    func deleteFevoriteItem(item: NewsModel)
 }
 
 class NewsResultViewModel: ObservableObject,NewsResultService {
@@ -90,8 +90,8 @@ class NewsResultViewModel: ObservableObject,NewsResultService {
 
 extension NewsResultViewModel :NewFavoriteViewModelProtocol {
     
-    func deleteFevoriteItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
-        dataManager.deleteFavoritesItem(title: title, description: description, sourceName: sourceName, url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content)
+    func deleteFevoriteItem(item:NewsModel) {
+        dataManager.deleteFavoritesItem(item: item)
         getFevoriteList()
     }
     
@@ -101,8 +101,8 @@ extension NewsResultViewModel :NewFavoriteViewModelProtocol {
         print(newsFevoriteList.count)
     }
     
-    func addFevoriteList(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
-        dataManager.addFavoritesItem(title: title, description: description, sourceName: sourceName, url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content)
+    func addFevoriteList(item:NewsModel) {
+        dataManager.addFavoritesItem(item: item)
         getFevoriteList()
     }
     

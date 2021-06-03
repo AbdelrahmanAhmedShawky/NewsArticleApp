@@ -10,9 +10,9 @@ struct FavoritesNewsView: View {
     var NewsListView: some View {
         List(self.viewModel.newsFavoritesList,id: \.title) { item in
             VStack {
-            NewsViewCell(item: NewsModel(title: item.title ?? "", description: item.description ?? "", source: item.source, url: item.url ?? "", urlToImage: item.urlToImage ?? "", publishedAt: item.publishedAt ?? "", content: item.content ?? ""))
+            NewsViewCell(item:item)
             Button(action: {
-                self.viewModel.deleteFevoriteItem(title: item.title ?? "", description: item.description ?? "", sourceName: item.source?.name ?? "", url: item.url ?? "", urlToImage: item.urlToImage ?? "", publishedAt: item.publishedAt ?? "", content: item.content ?? "")
+                self.viewModel.deleteFevoriteItem(item: item)
                 
             }) {
                 Text("delete from favorites")

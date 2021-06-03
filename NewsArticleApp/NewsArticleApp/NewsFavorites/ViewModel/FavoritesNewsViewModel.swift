@@ -11,7 +11,7 @@ import Combine
 protocol FavoritesListViewModelProtocol {
     var newsFavoritesList: [NewsModel] { get }
     func getFevoriteList()
-    func deleteFevoriteItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
+    func deleteFevoriteItem(item: NewsModel)
 }
 
 final class FavoritesNewsViewModel: ObservableObject {
@@ -31,8 +31,8 @@ extension FavoritesNewsViewModel: FavoritesListViewModelProtocol {
         newsFavoritesList = dataManager.fetchFavoritesListList()
     }
     
-    func deleteFevoriteItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
-        dataManager.deleteFavoritesItem(title: title, description: description, sourceName: sourceName, url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content)
+    func deleteFevoriteItem(item: NewsModel) {
+        dataManager.deleteFavoritesItem(item: item)
         getFevoriteList()
     }
 }

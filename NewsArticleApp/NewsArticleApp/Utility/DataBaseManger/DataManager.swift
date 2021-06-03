@@ -10,9 +10,8 @@ import CoreData
 
 protocol DataManagerProtocol {
     func fetchFavoritesListList() -> [NewsModel]
-    func addFavoritesItem(
-        title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
-    func deleteFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String)
+    func addFavoritesItem(item: NewsModel)
+    func deleteFavoritesItem(item: NewsModel)
 }
 
 extension DataManagerProtocol {
@@ -43,24 +42,24 @@ class DataManager {
 // MARK: - DataManagerProtocol
 extension DataManager: DataManagerProtocol {
         
-    func deleteFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
-        guard let todoMO = getItem(for: NewsModel(title: title, description: description, source: SourceModel(name: sourceName), url: url, urlToImage: urlToImage, publishedAt: publishedAt, content: content)) else {
+    func deleteFavoritesItem(item: NewsModel) {
+        guard let todoMO = getItem(for: item) else {
             return
         }
         dbHelper.delete(todoMO)
     }
     
-    func addFavoritesItem(title: String, description: String, sourceName: String, url: String, urlToImage: String, publishedAt: String, content: String) {
+    func addFavoritesItem(item: NewsModel) {
         let entity = TodoMO.entity()
         let newTodo = TodoMO(entity: entity, insertInto: dbHelper.context)
-        newTodo.title = title
+        newTodo.title = item.title
         newTodo.uuid = UUID()
-        newTodo.content = content
-        newTodo.descriptions = description
-        newTodo.sourceName = sourceName
-        newTodo.publishedAt = publishedAt
-        newTodo.url = url
-        newTodo.urlToImage = urlToImage
+        newTodo.content = item.content
+        newTodo.descriptions = item.description
+        newTodo.sourceName = item.source?.name
+        newTodo.publishedAt = item.publishedAt
+        newTodo.url = item.url
+        newTodo.urlToImage = item.urlToImage
         dbHelper.create(newTodo)
     }
     
